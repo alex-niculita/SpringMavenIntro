@@ -24,29 +24,40 @@ public class CalculatorController {
     @GetMapping("plus")
     public String getPlus(@RequestParam(required = false) String num1,
                           @RequestParam(required = false) String num2) {
+
+        if ((num1 == null) || (num2 == null)) return "Ошибка: не хватает чисел!";
         String x = "+";
-        return calculationService.calculate(num1, num2, x);
+        return String.format("%s %s %s = %d", num1, x, num2, calculationService.calculate(num1, num2, x));
     }
 
     @GetMapping("minus")
     public String getMinus(@RequestParam(required = false) String num1,
                            @RequestParam(required = false) String num2) {
+
+        if ((num1 == null) || (num2 == null)) return "Ошибка: не хватает чисел!";
         String x = "-";
-        return calculationService.calculate(num1, num2, x);
+        return String.format("%s %s %s = %d", num1, x, num2, calculationService.calculate(num1, num2, x));
     }
 
     @GetMapping("multiply")
     public String getMultiply(@RequestParam(required = false) String num1,
                               @RequestParam(required = false) String num2) {
+
+        if ((num1 == null) || (num2 == null)) return "Ошибка: не хватает чисел!";
         String x = "*";
-        return calculationService.calculate(num1, num2, x);
+        return String.format("%s %s %s = %d", num1, x, num2, calculationService.calculate(num1, num2, x));
     }
 
     @GetMapping("divide")
     public String getDivide(@RequestParam(required = false) String num1,
                             @RequestParam(required = false) String num2) {
+
+        if ((num1 == null) || (num2 == null)) return "Ошибка: не хватает чисел!";
+
         String x = "/";
-        return calculationService.calculate(num1, num2, x);
+        if (num2.equals("0")) return "Ошибка: делить на ноль нельзя!";
+
+        return String.format("%s %s %s = %.2f", num1, x, num2, calculationService.divide(num1, num2, x));
     }
 
 }
